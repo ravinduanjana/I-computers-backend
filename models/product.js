@@ -73,3 +73,7 @@ const Product = mongoose.model("Product",productSchema) // product modele eka he
 export default Product;
 
 
+
+
+
+
