@@ -71,3 +71,5 @@ const productSchema = new mongoose.Schema(
 const Product = mongoose.model("Product",productSchema) // product modele eka heduwa, export karagtha
 
 export default Product;
+
+
