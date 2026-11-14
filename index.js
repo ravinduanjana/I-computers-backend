@@ -11,12 +11,14 @@ import userRouter from './routers/userrouter.js'
 import productRouter from './routers/productRouter.js'
 import jwt from "jsonwebtoken";
 import authorizedUser from './lib/jwtMiddleware.js'
+import cors from 'cors'; //npm install cors kiyl ghala impot krgnna. postmangen req euwta web browser eken backend ekt req ewnna be cors error 
+                        //ekak eno eka nethi krla f end eken b end ekt req ewnna me cors library eke dgnna.
+import dotenv from'dotenv';
 
-
-
+dotenv.config() // meken wene dotenv eka udadi import kara. dotenv eke thiyena dewala load wena eka me page ekta.
 // data base heduwta passe collection eken data yawddi model eka haraha methnta model eka import karanna ona. collection name eka agta .js danna manually. import kre post eke curly braces wlat model name eka (Student) Stu ghala enter gehuwama eno export wenna ona code line eka,
 
-const mongoURI = "mongodb+srv://admin:1234@cluster0.grmcwkb.mongodb.net/?appName=Cluster0"
+const mongoURI = process.env.MONGO_URI  // "mongodb+srv://admin:1234@cluster0.grmcwkb.mongodb.net/?appName=Cluster0" mongouli eka env file ekata dala e uri eka call kara methanta, dot env eka haraha
 
 //mongoURL variable eka db ekata conncet kara yata line eke then walin kiynnne softwre eka db eka ekka connect unoth ena msgs eka. catch eke pennanne ehema nounoth pennana msg eka.
 mongoose.connect(mongoURI).then(
@@ -32,6 +34,8 @@ mongoose.connect(mongoURI).then(
 
 const app = express()   //expressjs wala thiyena codes app kiyana variable ekta dagenima. mekma let app kiyla dannath puluwn but wenas nowena variable wlat const danna venas wena variable wlata let dala hadgna.
 
+app.use( cors() )
+
 app.use(express.json())  // this line for middle man process. watch all the reques and manage them.
 //function started(){     function ekak heduwa server started kiyla print wena
 //console.log("server started")}   started kiyna function eka ekma thenkta witrak use wena nisa eka arrow function ekak widiyata liyanna puluwan.
@@ -39,16 +43,16 @@ app.use(express.json())  // this line for middle man process. watch all the requ
 
 //token ekak heduwe user id ekak wage weda krnna systm ekta log wena ayta. okkoma http request allagena ewta menna me wade krnna kiyla kiyana eka thama me code eken wenne.
 
-
+app.use
 
 app.use(
     authorizedUser
 )
 
-app.use("/students", studentrouter)
-app.use("/teacher", teacherrouter) //localhost:3000/student kiyna ekta req ekak awoth eka student router ekta yawanna me line eken.
-app.use("/users", userRouter)
-app.use("/products", productRouter)
+app.use("/api/students", studentrouter)
+app.use("/api/teacher", teacherrouter) //localhost:3000/student kiyna ekta req ekak awoth eka student router ekta yawanna me line eken.
+app.use("/api/users", userRouter)
+app.use("/api/products", productRouter)
 
 /*  start
 app.get("/" ,

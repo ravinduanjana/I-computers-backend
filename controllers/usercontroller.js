@@ -1,6 +1,9 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt"; 
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
+
+dotenv.config()
 //create user function eka hdnne userslatawa hadnna
 export function createUser(req,res){
 
@@ -53,7 +56,7 @@ export function loginUser(req,res){
     }). then (
         (user)=>{
             if (user == null) {
-                res.json({
+                res.status(404).json({
                     message : "user with given email not found",
                 })
             } else {
@@ -73,7 +76,7 @@ export function loginUser(req,res){
                         image : user.image,
                         isEmailVerified : user.isEmailVerified
 
-                    }, "i-computers-54!")  //icomputers-54! kiynne api dena key ekak(only developer should know) itpasse json eka atule userwa adurgnna one wenawisthrar tika danawa 
+                    }, process.env.JWT_SECRET ) // process.env.JWT_SECRET  demme  "i-computers-54!" wenuwata. //icomputers-54! kiynne api dena key ekak(only developer should know) itpasse json eka atule userwa adurgnna one wenawisthrar tika danawa 
                     
                     console.log(token)
                     console.log({
@@ -88,7 +91,8 @@ export function loginUser(req,res){
                     
                     res.json({
                         message : "login successful",
-                        token : token, //lgn succful msg ekth ekka api hadpu token ekth ywnwa userta postman haraha. 
+                        token : token, //lgn succful msg ekth ekka api hadpu token ekth ywnwa userta postman haraha log weddi. 
+                        role : user.role //lgn weddi user role ekath front end ekt ywnna one, customer nm home page ekt, admin nm admin page ekata yanna one nisa                    
                     });
                 } else {
                     res.status(401).json({
