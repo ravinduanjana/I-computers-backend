@@ -1,6 +1,5 @@
 import { isAdmin } from "./usercontroller.js";
 import Product from "../models/product.js";
-import productRouter from "../routers/productRouter.js";
 
 
 
@@ -31,13 +30,13 @@ try {
 
         data.name = req.body.name; // uda data kiyla hadpu empty json ekata request eke ena data daganno.
         data.description = req.body.description ||"" // description eka awe nethoth product create kraddi || "" me wage null stringekak dano, e kiuwe description ekak awe nethoth arka dagnno empty kiyala
-        data.AltName = req.body.AltName || [] // [] demme user models eketh [] dapu nisa. string array ekak nisa.
+        data.AltName = req.body.altName || [] // [] demme user models eketh [] dapu nisa. string array ekak nisa.
         if(req.body.price == null) {
             res.status(400).json({message : "product price is required"})
             return; // return danne methanin ehata me code eka run wnna be price eka nethuwa req eka awa nisa
         }
         data.price = req.body.price;
-        data.labledPrice = req.body.labledPrice || req.body.price;
+        data.labelledPrice = req.body.labelledPrice || req.body.price;
         data.category = req.body.category || "other"
         data.images= req.body.images || ["/image/default-product-1.png","/image/default-product-2.png"]
         data.isVisible= req.body.isVisible
@@ -146,7 +145,7 @@ export async function getProductById(req,res){
 
     try{
 
-        const productId = req.params.productId;
+        const productId = req.params.productId; //json ekakak netuwa api ekema ena nisa param dane.
         const product = await Product.findOne({productId:productId})
 
         if(product == null)
