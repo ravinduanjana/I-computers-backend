@@ -28,7 +28,7 @@ const productSchema = new mongoose.Schema(
             type : Number,
             required : true
         },
-        labledPrice : {
+        labelledPrice : {
             type : Number  // labled price mean wedi mila kapala,  sell krana price eka pennana ekata 
         },
 
@@ -71,6 +71,7 @@ const productSchema = new mongoose.Schema(
 const Product = mongoose.model("Product",productSchema) // product modele eka heduwa, export karagtha
 
 export default Product;
+
 
 
 
