@@ -121,7 +121,7 @@ try {
             return; // return danne methanin ehata me code eka run wnna be price eka nethuwa req eka awa nisa
         }
         data.price = req.body.price;
-        data.labledPrice = req.body.labledPrice || req.body.price;
+        data.labelledPrice = req.body.labelledPrice || req.body.price;
         data.category = req.body.category || "other"
         data.images= req.body.images || ["/image/default-product-1.png","/image/default-product-2.png"]
         data.isVisible= req.body.isVisible
