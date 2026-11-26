@@ -59,6 +59,11 @@ const productSchema = new mongoose.Schema(
             type : String,
             default : "standard"
 
+        },
+
+        qty : {
+            type : Number,
+            default : 100
         }
         
 

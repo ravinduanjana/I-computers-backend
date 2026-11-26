@@ -6,7 +6,7 @@ import { createProduct, deleteProduct, getProductById, getProducts, updateProduc
 const productRouter = express.Router();
 productRouter.post("/add-product", createProduct);
 productRouter.get("/", getProducts);
-productRouter.get("/:trending", (req,res )=>{
+productRouter.get("/trending", (req,res )=>{
     res.status(202).json({message: "this is trending product end point"}) 
 })
 productRouter.get("/:productId",getProductById);

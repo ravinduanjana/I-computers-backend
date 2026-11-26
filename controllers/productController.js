@@ -30,7 +30,7 @@ try {
 
         data.name = req.body.name; // uda data kiyla hadpu empty json ekata request eke ena data daganno.
         data.description = req.body.description ||"" // description eka awe nethoth product create kraddi || "" me wage null stringekak dano, e kiuwe description ekak awe nethoth arka dagnno empty kiyala
-        data.AltName = req.body.altName || [] // [] demme user models eketh [] dapu nisa. string array ekak nisa.
+        data.AltName = req.body.AltName || [] // [] demme user models eketh [] dapu nisa. string array ekak nisa.
         if(req.body.price == null) {
             res.status(400).json({message : "product price is required"})
             return; // return danne methanin ehata me code eka run wnna be price eka nethuwa req eka awa nisa
@@ -115,7 +115,7 @@ try {
 
         data.name = req.body.name; // uda data kiyla hadpu empty json ekata request eke ena data daganno.
         data.description = req.body.description ||"" // description eka awe nethoth product create kraddi || "" me wage null stringekak dano, e kiuwe description ekak awe nethoth arka dagnno empty kiyala
-        data.AltName = req.body.AltName || [] // [] demme user models eketh [] dapu nisa. string array ekak nisa.
+            data.AltName = req.body.AltName || []; // [] demme user models eketh [] dapu nisa. string array ekak nisa.
         if(req.body.price == null) {
             res.status(400).json({message : "product price is required"})
             return; // return danne methanin ehata me code eka run wnna be price eka nethuwa req eka awa nisa

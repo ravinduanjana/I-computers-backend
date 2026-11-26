@@ -14,6 +14,7 @@ import authorizedUser from './lib/jwtMiddleware.js'
 import cors from 'cors'; //npm install cors kiyl ghala impot krgnna. postmangen req euwta web browser eken backend ekt req ewnna be cors error 
                         //ekak eno eka nethi krla f end eken b end ekt req ewnna me cors library eke dgnna.
 import dotenv from'dotenv';
+import orderRouter from './routers/orderRouter.js'
 
 dotenv.config() // meken wene dotenv eka udadi import kara. dotenv eke thiyena dewala load wena eka me page ekta.
 // data base heduwta passe collection eken data yawddi model eka haraha methnta model eka import karanna ona. collection name eka agta .js danna manually. import kre post eke curly braces wlat model name eka (Student) Stu ghala enter gehuwama eno export wenna ona code line eka,
@@ -53,6 +54,7 @@ app.use("/api/students", studentrouter)
 app.use("/api/teacher", teacherrouter) //localhost:3000/student kiyna ekta req ekak awoth eka student router ekta yawanna me line eken.
 app.use("/api/users", userRouter)
 app.use("/api/products", productRouter)
+app.use("/api/orders", orderRouter)
 
 /*  start
 app.get("/" ,
