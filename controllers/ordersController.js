@@ -1,7 +1,7 @@
-
 import Order from "../models/orders.js";
 import Product from "../models/product.js";
 import mongoose from "mongoose";
+import { isAdmin } from "./usercontroller.js";
 
 // Atomic counter for generating order IDs
 const counterSchema = new mongoose.Schema({
@@ -153,7 +153,61 @@ export async function createOrder(req, res) {
         res.status(500).json({
             message: "Error creating the order"
         });
-
+    
     }
 
 }
+
+
+ export async function getOrders(req, res){
+
+        if(req.user == null){
+            res.status(401).json({Message: "Unauthorized, please login to view yours orders."});
+            return;
+        }
+        const pageSizeInString = req.params.PageSize || "10" //req eke ena size eka page size eka widyt gnna nethna ehema ekak awe nethn 10 gnna
+        const pageNumberInString =req.params.pageNumber || "1"
+        const pageSize = parseInt(pageSizeInString)
+        const pageNumber = parseInt(pageNumberInString)
+
+        
+
+        try{
+            
+        if(isAdmin(req)){
+            const numberOfOrders = await Order.countDocuments()
+            const numberOfPages = Math.ceil(numberOfOrders / pageSize)
+            const orders = await Order.find().sort({date : -1}).skip((pageNumber - 1) * pageSize).limit(pageSize) //okkoma orders tika argena aluthma date eka thiyena order eka mulin pennanna. 
+
+            res.json({
+                orders : orders,
+                totalPages : numberOfPages
+            })
+
+
+        } else{
+            const numberOfOrders = await Order.countDocuments()
+            const numberOfPages = Math.ceil(numberOfOrders / pageSize)
+            const orders = await Order.find({email : req.user.email}).sort({date : -1}).skip((pageNumber - 1) * pageSize).limit(pageSize) //okkoma orders tika argena aluthma date eka thiyena order eka mulin pennanna. 
+
+            res.json({
+                orders : orders,
+                totalPages : numberOfPages
+            })
+
+
+        }
+
+       
+        } catch(error){
+            console.log("error fetching products", error)
+            req.status(500).json({message :"error fetching Products", error : error})
+
+
+        }
+
+        
+
+    }
+ 
+
